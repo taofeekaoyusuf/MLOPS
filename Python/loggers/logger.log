@@ -1,0 +1,7 @@
+25-05-2025 04:14:51-root-DEBUG-Call to Addition function is being made
+25-05-2025 04:14:51-root-DEBUG-Addition operation is taking place, be warned
+25-05-2025 04:14:51-module1-DEBUG-This is an error message for Module 1
+25-05-2025 04:14:51-module2-WARNING-This is an info message for Module 2
+25-05-2025 04:14:51-module3-ERROR-This is a error message log for Module 3
+25-05-2025 04:14:51-module4-INFO-This is a info message for Module 4
+25-05-2025 04:14:51-module5-CRITICAL-This is an critical message for Module 5

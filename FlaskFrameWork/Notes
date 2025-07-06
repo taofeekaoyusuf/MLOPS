@@ -1,0 +1,6 @@
+FLASK FRAMEWORK
+
+- WSGI    -> Web Server Gateway Interface
+- Jinja 2 -> Template Engine (Web Template Engine) - it combines a web template with a data source
+
+Flask framework is a web framework which is created with the Python Programming

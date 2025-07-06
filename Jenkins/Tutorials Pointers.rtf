@@ -1,0 +1,96 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Bold;\f1\froman\fcharset0 Times-Roman;\f2\fmodern\fcharset0 Courier-Bold;
+\f3\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid1\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid2\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid3\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li2160\lin2160 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid101\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww20840\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\fs28 \cf0 \uc0\u55358 \u56817  Problem: SSH keys disappear when container restarts?\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 	- Yes\'97because Docker containers are ephemeral.
+\f0\b\fs36 \
+\pard\pardeftab720\sa298\partightenfactor0
+\cf0 \uc0\u55357 \u56613  Permanent Fix: Use Docker Volume for 
+\f2\fs39 .ssh
+\f0\fs36 \
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Mount a host folder for Jenkins SSH keys:\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Modify your 
+\f2\fs30\fsmilli15210 docker run
+\f0\fs28  or 
+\f2\fs30\fsmilli15210 docker-compose.yml
+\f0\fs28 \
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Add a volume for SSH:
+\f3\fs26 \
+\pard\pardeftab720\partightenfactor0
+\cf0 	volumes:\
+  		- jenkins_home:/var/jenkins_home\
+  		- ./jenkins-ssh:/var/jenkins_home/.ssh  # host folder for persistent SSH keys\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\fs24 \cf0 Then:\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
+\ls1\ilvl1\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 	(1)   \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Generate SSH keys 
+\f0\b on the host
+\f1\b0  (outside Docker):\
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\sa240\partightenfactor0
+\ls1\ilvl2\cf0 {\listtext	\uc0\u8259 	}mkdir -p jenkins-ssh\
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\sa240\partightenfactor0
+\ls1\ilvl2\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8259 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 ssh-keygen -t ed25519 -C "jenkins@docker" -f ./jenkins-ssh/id_ed25519 -N ""\
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\sa240\partightenfactor0
+\cf0                 (2)   Add 
+\f3\fs26 \strokec2 id_ed25519.pub
+\f1\fs24 \strokec2  to GitHub as an SSH key.\
+                (3)   Restart Jenkins container with the new volume.\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf0 \strokec2 Now Jenkins always has SSH keys even after a restart.\
+\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 \uc0\u9889  Alternative (Quick Fix): Use HTTPS + Personal Access Token\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Change repo URL to:
+\f3\fs26 \
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\fs24 \cf0 	- https://github.com/taofeekaoyusuf/test-gitToJenkins-sshConnection.git\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf0 Add GitHub username + PAT as credentials in Jenkins:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
+\ls2\ilvl0
+\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	1	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Kind
+\f1\b0 : Username with password\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	2	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Username
+\f1\b0 : Your GitHub username\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	3	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Password
+\f1\b0 : Your GitHub Personal Access Token\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf0 \strokec2 \
+\
+\
+\
+\
+}

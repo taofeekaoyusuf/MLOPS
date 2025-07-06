@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESULT PAGE</title>
+</head>
+<body>
+    <h1>Hi {{ nam }}. </br></br>Your Term Performance is as follows:</h1>
+    <!-- {% for key, val in results.items() %}
+        Key: {{ key }} (Type: {{ key.__class__.__name__ }}), Val: {{ val }}<br>
+    {% endfor %} -->
+    <table>
+            <tr>
+                <th><h2>Metrics</h2></th>
+                <th><h2>Grade</h2></th>
+            </tr>
+            {% for key, val in results.items() %}
+                <tr>
+                    <td><h3>{{ key }}</h3></td>
+                    {% if val|float >= 50 %}
+                        <td><h3 style="color: darkgreen;">{{ val }}</h3></td>
+                    {% else  %}
+                        <td><h3 style="color: rgb(100, 0, 0);">{{ val }}</h3></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+    </table> 
+</body>
+</html>
