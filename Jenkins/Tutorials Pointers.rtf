@@ -123,6 +123,26 @@ RUN apt-get update && apt-get install -y openssh-client \\\
 \pard\pardeftab720\sa240\partightenfactor0
 \cf0 \
 \
+USING WHEN EXPRESSION IN JENKINSFILE\
+when \{\
+	expression \{\
+		params.select_environment == \'91dev\'92\
+	\}\
+	beforeAgent true\
+\}\
+agent \{\
+	label \'91dev\'92\
+\}\
+steps \{\
+\
+\}\
+\
+\
+Adding Module to apache2.conf\
+<IfModule dir_module>\
+	DirectoryIndex index.html index.jsp\
+<IfModule>\
+\
 \
 \
 }

@@ -10,7 +10,7 @@ pipeline {
     }
 
     environment {
-        NAME = 'dev'
+        NAME = "$name"
     }
 
     stages {
@@ -33,8 +33,12 @@ pipeline {
 
         stage('build') {
             steps {
-                echo "PLATFORM: ==> $NAME ${params.DEV}"
+                echo "PLATFORM: ==> $NAME" // ${params.DEV}"
                 echo "Dev Build Stage"
+                script {
+                    file = load "script.groovy"
+                    file.hello()
+                }
             }
             post {
                 success {
@@ -46,14 +50,14 @@ pipeline {
         stage('test') {
             parallel {
                 stage('test_A') {
-                    agent {label 'dev'}
+                    agent {label "$NAME"}
                     steps{
                         echo "Dev Test_A Stage"
                     }
                 }
                 stage('test_B'){
                     // agent {label 'dev'}
-                    agent {label 'dev'}
+                    agent {label "$NAME"}
                     steps{
                         echo "Dev Test_B Stage"
                     }
@@ -67,8 +71,18 @@ pipeline {
         }
 
         stage('deploy') {
+            when {
+                expression {
+                    params.select_environment == 'prod'
+                }
+                beforeAgent true
+            }
+            agent {
+                label ‘$NAME’
+            }
             steps {
-                echo "Dev Deploy Stage"
+                timeout(time:5, unit: 'DAYS'){ input message: 'Do you wish to approved the deployment to Production Server?'}
+                echo "$NAME Deploy Stage Begins"
             }
             post {
                 success {
