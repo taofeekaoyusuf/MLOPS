@@ -36,7 +36,7 @@ pipeline {
                 echo "PLATFORM: ==> $NAME" // ${params.DEV}"
                 echo "Dev Build Stage"
                 script {
-                    file = load "${env.WORKSPACE}/Jenkins/script.groovy" // "/Jenkins/script.groovy"
+                    file = load "Jenkins/script.groovy" // "/Jenkins/script.groovy"
                     file.hello()
                 }
             }
