@@ -10,7 +10,7 @@ pipeline {
     }
 
     environment {
-        NAME = "$params.choices"
+        NAME = "$params.choice"
     }
 
     stages {
