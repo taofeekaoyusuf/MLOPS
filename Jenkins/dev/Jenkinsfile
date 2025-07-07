@@ -5,7 +5,8 @@ pipeline {
     }
 
     parameters {
-        string defaultValue: 'environment', name: 'DEV'
+        // string defaultValue: 'environment', name: 'DEV'
+        choice choices: ['dev', 'prod'], name: 'select_environment'
     }
 
     environment {
@@ -45,11 +46,14 @@ pipeline {
         stage('test') {
             parallel {
                 stage('test_A') {
+                    agent {label when {expression {params.select_environment == $choice}}}
                     steps{
                         echo "Dev Test_A Stage"
                     }
                 }
                 stage('test_B'){
+                    // agent {label 'dev'}
+                    agent {label when {expression {params.select_environment == $choice}}}
                     steps{
                         echo "Dev Test_B Stage"
                     }
