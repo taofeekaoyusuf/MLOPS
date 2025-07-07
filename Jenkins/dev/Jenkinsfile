@@ -78,7 +78,7 @@ pipeline {
                 beforeAgent true
             }
             agent {
-                label ‘$NAME’
+                label "$NAME"
             }
             steps {
                 timeout(time:5, unit: 'DAYS'){ input message: 'Do you wish to approved the deployment to Production Server?'}
