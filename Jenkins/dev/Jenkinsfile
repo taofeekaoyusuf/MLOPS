@@ -43,8 +43,17 @@ pipeline {
         }
 
         stage('test') {
-            steps {
-                echo "Dev Test Stage"
+            parallel {
+                stage('test_A') {
+                    steps{
+                        echo "Dev Test_A Stage"
+                    }
+                }
+                stage('test_B'){
+                    steps{
+                        echo "Dev Test_B Stage"
+                    }
+                }
             }
             post {
                 success {
