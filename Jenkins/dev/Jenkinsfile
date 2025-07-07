@@ -5,11 +5,11 @@ pipeline {
     }
 
     parameters {
-        string defaultValue: 'environment', platform: 'DEV'
+        string defaultValue: 'environment', name: 'DEV'
     }
 
     environment {
-        PLATFORM = 'dev'
+        NAME = 'dev'
     }
 
     stages {
