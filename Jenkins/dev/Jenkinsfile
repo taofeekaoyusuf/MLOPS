@@ -46,14 +46,14 @@ pipeline {
         stage('test') {
             parallel {
                 stage('test_A') {
-                    agent {label when {expression {params.select_environment == $choice}}}
+                    agent {label when {expression {params.select_environment == 'dev'}}}
                     steps{
                         echo "Dev Test_A Stage"
                     }
                 }
                 stage('test_B'){
                     // agent {label 'dev'}
-                    agent {label when {expression {params.select_environment == $choice}}}
+                    agent {label when {expression {params.select_environment == 'dev'}}}
                     steps{
                         echo "Dev Test_B Stage"
                     }
