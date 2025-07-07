@@ -5,8 +5,7 @@ pipeline {
     }
 
     parameters {
-        string defaultValue: 'environment'
-        environ: 'DEV'
+        string defaultValue: 'environment', platform: 'DEV'
     }
 
     environment {
