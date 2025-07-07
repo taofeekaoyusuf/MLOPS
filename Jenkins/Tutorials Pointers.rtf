@@ -105,7 +105,19 @@ Kindly help fix the problem\
 \
 docker run --rm  --privileged --name dev --volume /dev:/"$PWD"/dev -e APP_ENV=dev ubuntu:latest\
 \
-docker run --rm  --privileged --name prod --volume /dev:/"$PWD"/prod -e APP_ENV=prod ubuntu:latest
+docker run --rm  --privileged --name prod --volume /dev:/"$PWD"/prod -e APP_ENV=prod ubuntu:latest\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs24 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \outl0\strokewidth0 \strokec2 If you want every Jenkins Docker agent to auto-accept GitHub host key, bake this into your Dockerfile:
+\f4\fs22 \cf3 \kerning1\expnd0\expndtw0 \CocoaLigature0 \outl0\strokewidth0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+RUN apt-get update && apt-get install -y openssh-client \\\
+ && mkdir -p /root/.ssh \\\
+ && ssh-keyscan github.com >> /root/.ssh/known_hosts \\\
+ && chmod 600 ~/.ssh/known_hosts
 \f1\fs24 \cf0 \expnd0\expndtw0\kerning0
 \CocoaLigature1 \outl0\strokewidth0 \strokec2 \
 \pard\pardeftab720\sa240\partightenfactor0
