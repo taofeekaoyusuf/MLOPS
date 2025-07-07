@@ -1,19 +1,41 @@
 pipeline {
-    agent any
+
+    agent {
+        label 'dev'
+    }
+
     stages {
+
         stage('build') {
             steps {
                 echo "Dev Build Stage"
             }
+            post {
+                success {
+                    echo "Build Stage Completed!!!"
+                }
+            }
         }
+
         stage('test') {
             steps {
                 echo "Dev Test Stage"
             }
+            post {
+                success {
+                    echo "Test Stage Completed!!!"
+                }
+            }
         }
+
         stage('deploy') {
             steps {
                 echo "Dev Deploy Stage"
+            }
+            post {
+                success {
+                    echo "Deploy Stage Completed!!!"
+                }
             }
         }
     }
